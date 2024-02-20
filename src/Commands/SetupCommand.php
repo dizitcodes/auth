@@ -34,6 +34,9 @@ class SetupCommand extends BaseCommand
         $this->addRoute("\$routes->post('auth/password-recovery', 'Admin\Auth::send_recovery_link', ['filter' => 'csrf']);");
         $this->addRoute("\$routes->get('auth/password-reset/(:any)', 'Admin\Auth::reset_password/$1');");
         $this->addRoute("\$routes->post('auth/password-reset/(:any)', 'Admin\Auth::update_password/$1', ['filter' => 'csrf']);");
+
+        // execute os seeder
+        $this->executeSeeder('UsersSeeder');
     }
     private function copyFilesFromDirectory($directoryName, $relativePath)
     {
@@ -72,6 +75,17 @@ class SetupCommand extends BaseCommand
         closedir($dir);
     }
 
+    private function executeSeeder($seederName)
+    {
+        $command = "php spark db:seed {$seederName}";
+        exec($command, $output, $returnVar);
+
+        if ($returnVar === 0) { // Se o comando foi executado com sucesso
+            CLI::write("Seeder {$seederName} executado com sucesso.", 'green');
+        } else {
+            CLI::write("Falha ao executar o seeder {$seederName}.", 'red');
+        }
+    }
 
     private function addRoute($routeDefinition)
     {
