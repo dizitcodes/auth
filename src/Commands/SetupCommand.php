@@ -27,8 +27,13 @@ class SetupCommand extends BaseCommand
         }
 
         $this->addRoute("// Auto Routes - Packages");
-        $this->addRoute("\$routes->resource('auth/login', [/*'filter' => 'session'*/]);");
-        $this->addRoute("\$routes->resource('auth/logout');");
+        $this->addRoute("\$routes->get('auth', 'Admin\Auth::login');");
+        $this->addRoute("\$routes->get('auth/logout', 'Admin\Auth::logout');");
+        $this->addRoute("\$routes->post('auth', 'Admin\Auth::signin', ['filter' => 'csrf']);");
+        $this->addRoute("\$routes->get('auth/password-recovery', 'Admin\Auth::password_recovery');");
+        $this->addRoute("\$routes->post('auth/password-recovery', 'Admin\Auth::send_recovery_link', ['filter' => 'csrf']);");
+        $this->addRoute("\$routes->get('auth/password-reset/(:any)', 'Admin\Auth::reset_password/$1');");
+        $this->addRoute("\$routes->post('auth/password-reset/(:any)', 'Admin\Auth::update_password/$1', ['filter' => 'csrf']);");
     }
     private function copyFilesFromDirectory($directoryName, $relativePath)
     {
