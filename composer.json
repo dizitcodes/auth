@@ -1,0 +1,16 @@
+{
+    "name": "dizitcodes/auth",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Dizit\\Auth\\": "src/"
+        }
+    },
+    "extra": {
+        "codeigniter4": {
+            "commands": {
+                "Dizit\\Auth\\Commands\\SetupCommand": "auth:setup"
+            }
+        }
+    }
+}
