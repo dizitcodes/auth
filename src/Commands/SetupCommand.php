@@ -61,6 +61,8 @@ class SetupCommand extends BaseCommand
             if (($file != '.') && ($file != '..')) {
                 if (is_dir($src . '/' . $file)) {
                     $this->recursiveCopy($src . '/' . $file, $dst . '/' . $file);
+                    // Opcional: remover o diretório de origem após copiar seu conteúdo
+                    rmdir($src . '/' . $file);
                 } else {
                     $sourceFile = $src . '/' . $file;
                     $destinationFile = $dst . '/' . $file;
@@ -69,6 +71,8 @@ class SetupCommand extends BaseCommand
                             CLI::write("Falha ao copiar {$sourceFile}...", 'red');
                         } else {
                             CLI::write("{$file} copiado com sucesso para {$destinationFile}", 'green');
+                            // Excluir o arquivo de origem após a cópia
+                            unlink($sourceFile);
                         }
                     } else {
                         CLI::write("{$file} já existe em {$destinationFile}. Nenhuma ação foi tomada.", 'yellow');
@@ -78,6 +82,7 @@ class SetupCommand extends BaseCommand
         }
         closedir($dir);
     }
+
 
     private function addRoute($routeDefinition)
     {
