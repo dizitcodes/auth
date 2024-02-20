@@ -1,0 +1,27 @@
+::placeholder {
+    color: #cdcdcd !important;
+    /* Substitua com a cor desejada em hexadecimal ou nome da cor */
+}
+
+/* Exclui os inputs dentro de divs com a classe .form-floating */
+.form-floating input::placeholder {
+    color: transparent !important;
+}
+
+.btn {
+    text-transform: none !important;
+}
+
+
+body .page-sidebar img.logo {
+    width: 2.8rem !important;
+    transition: width 1.5s ease-in-out;
+}
+
+body.page-sidebar-mini .page-sidebar img.logo {
+    width: 100% !important;
+}
+
+body:not(.layout-boxed).page-sidebar-mini .page-sidebar:hover img.logo {
+    width: 2.8rem !important;
+}

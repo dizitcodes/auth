@@ -16,6 +16,7 @@ class SetupCommand extends BaseCommand
         CLI::write('Configurando o auth...', 'green');
 
         $directories = [
+            'Cells' => 'Cells/',
             'Models' => 'Models/',
             'Views' => 'Views/',
             'Controllers' => 'Controllers/',
@@ -23,6 +24,7 @@ class SetupCommand extends BaseCommand
             'Helpers' => 'Helpers/',
             'Libraries' => 'Libraries/',
             'Filters' => 'Filters/',
+            'PublicHTML' => '../public_html/',
             // Adicione mais diretórios conforme necessário
         ];
 
@@ -39,8 +41,19 @@ class SetupCommand extends BaseCommand
         $this->addRoute("\$routes->get('auth/password-reset/(:any)', 'Admin\Auth::reset_password/$1');");
         $this->addRoute("\$routes->post('auth/password-reset/(:any)', 'Admin\Auth::update_password/$1', ['filter' => 'csrf']);");
 
+        $this->addRoute("\$routes->group('admin', ['filter' => 'admin_auth'], static function (\$routes) {");
+        $this->addRoute("   \$routes->resource('configuracoes', ['controller' => 'Admin\\Configuracoes']);");
+        $this->addRoute("   \$routes->get('usuario', 'Admin\\Usuario::show');");
+        $this->addRoute("   \$routes->put('usuario', 'Admin\\Usuario::update');");
+        $this->addRoute("   \$routes->get('dashboard', 'Admin\\Dashboard::index');");
+        $this->addRoute("});");
+
+
         // execute os seeder        
-        CLI::write('Execute: php spark db:seed UsersSeeder', 'red');
+        CLI::write('[LEMBRETE] Execute os comandos:', 'red');
+        CLI::write('php spark migrate', 'red');
+        CLI::write('php spark db:seed UsersSeeder', 'red');
+        CLI::write('composer require firebase/php-jwt', 'red');
     }
     private function copyFilesFromDirectory($directoryName, $relativePath)
     {
@@ -62,7 +75,7 @@ class SetupCommand extends BaseCommand
                 if (is_dir($src . '/' . $file)) {
                     $this->recursiveCopy($src . '/' . $file, $dst . '/' . $file);
                     // Opcional: remover o diretório de origem após copiar seu conteúdo
-                    rmdir($src . '/' . $file);
+                    // rmdir($src . '/' . $file);
                 } else {
                     $sourceFile = $src . '/' . $file;
                     $destinationFile = $dst . '/' . $file;
@@ -76,6 +89,7 @@ class SetupCommand extends BaseCommand
                         }
                     } else {
                         CLI::write("{$file} já existe em {$destinationFile}. Nenhuma ação foi tomada.", 'yellow');
+                        unlink($sourceFile);
                     }
                 }
             }
