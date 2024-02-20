@@ -19,6 +19,9 @@ class SetupCommand extends BaseCommand
             'Models' => 'Models/',
             'Views' => 'Views/',
             'Controllers' => 'Controllers/',
+            'Helpers' => 'Helpers/',
+            'Libraries' => 'Libraries/',
+            'Filters' => 'Filters/',
             // Adicione mais diretórios conforme necessário
         ];
 
