@@ -51,9 +51,10 @@ class SetupCommand extends BaseCommand
 
         // execute os seeder        
         CLI::write('[LEMBRETE] Execute os comandos:', 'red');
-        CLI::write('php spark migrate', 'red');
-        CLI::write('php spark db:seed UsersSeeder', 'red');
         CLI::write('composer require firebase/php-jwt', 'red');
+        CLI::write('composer require codeigniter4/settings', 'red');
+        CLI::write('php spark migrate --all', 'red');
+        CLI::write('php spark db:seed UsersSeeder', 'red');
     }
     private function copyFilesFromDirectory($directoryName, $relativePath)
     {
