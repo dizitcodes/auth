@@ -38,11 +38,23 @@ Rodar os migrations e seeders
 php spark migrate --all
 php spark db:seed UsersSeeder
 ```
+Configurar as aliases dos Filtros no arquivo Config>Filters.php
+```sh
+public array $aliases = [
+    'csrf'          => CSRF::class,
+    'toolbar'       => DebugToolbar::class,
+    'honeypot'      => Honeypot::class,
+    'invalidchars'  => InvalidChars::class,
+    'secureheaders' => SecureHeaders::class,
+    'admin_auth'    => \App\Filters\Admin\AuthFilter::class,
+    'api_auth'      => \App\Filters\Api\AuthFilter::class,
+];
+```
 
 Iniciar server
 
 ```sh
-php spark server
+php spark serve
 ```
 
 Acesso ao admin
