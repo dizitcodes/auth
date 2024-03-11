@@ -140,7 +140,7 @@ class Auth extends BaseController
         if ($mail->send()) {
             setToast('success', 'E-mail enviado com sucesso!', 'bottom');
         } else {
-            setToast('error', 'Erro ao enviar o e-mail: ' . $mail->printDebugger(), 'bottom');
+            setToast('error', 'Erro ao enviar o e-mail', 'bottom');
         }
         return redirect()->to('auth');
 

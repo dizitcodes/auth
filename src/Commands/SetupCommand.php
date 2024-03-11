@@ -24,12 +24,30 @@ class SetupCommand extends BaseCommand
             'Helpers' => 'Helpers/',
             'Libraries' => 'Libraries/',
             'Filters' => 'Filters/',
-            'PublicHTML' => '../public_html/',
+            'PublicHTML' => '../public/',
             // Adicione mais diretórios conforme necessário
         ];
 
+
         foreach ($directories as $key => $relativePath) {
             $this->copyFilesFromDirectory($key, $relativePath);
+        }
+
+        $sourceFile = VENDORPATH . 'dizitcodes/auth/src/env';
+        $destinationFile = ROOTPATH . '/env';
+        if (file_exists($sourceFile)) {
+            if (!file_exists($destinationFile)) {
+                if (!copy($sourceFile, $destinationFile)) {
+                    CLI::write("Falha ao copiar {$sourceFile}...", 'red');
+                } else {
+                    CLI::write("{$sourceFile} copiado com sucesso para {$destinationFile}", 'green');
+                    // Excluir o arquivo de origem após a cópia
+                    unlink($sourceFile);
+                }
+            } else {
+                CLI::write("{$sourceFile} já existe em {$destinationFile}. Nenhuma ação foi tomada.", 'yellow');
+                // unlink($sourceFile);
+            }
         }
 
         $this->addRoute("// Auto Routes - Packages");
@@ -49,12 +67,13 @@ class SetupCommand extends BaseCommand
         $this->addRoute("});");
 
 
-        // execute os seeder        
-        CLI::write('[LEMBRETE] Execute os comandos:', 'red');
-        CLI::write('composer require firebase/php-jwt', 'red');
-        CLI::write('composer require codeigniter4/settings', 'red');
-        CLI::write('php spark migrate --all', 'red');
-        CLI::write('php spark db:seed UsersSeeder', 'red');
+        // execute os seeder
+        CLI::write("\n[LEMBRETE] Execute os comandos:", 'red');
+        CLI::write('  composer require firebase/php-jwt', 'red');
+        CLI::write('  composer require codeigniter4/settings', 'red');
+        CLI::write('  php spark migrate --all', 'red');
+        CLI::write('  php spark db:seed UsersSeeder', 'red');
+        CLI::write("\nSugestão de HASH: " . $this->gerarHashAleatorio(), 'blue');
     }
     private function copyFilesFromDirectory($directoryName, $relativePath)
     {
@@ -122,5 +141,14 @@ class SetupCommand extends BaseCommand
         } else {
             CLI::write('A rota foi adicionada com sucesso.', 'green');
         }
+    }
+
+    private function gerarHashAleatorio()
+    {
+        // Gera 20 bytes aleatórios
+        $bytes = openssl_random_pseudo_bytes(20);
+        // Converte os bytes para uma string hexadecimal de 40 caracteres
+        $hash = bin2hex($bytes);
+        return $hash;
     }
 }
