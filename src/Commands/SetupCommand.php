@@ -67,13 +67,8 @@ class SetupCommand extends BaseCommand
         $this->addRoute("});");
 
 
-        // execute os seeder
-        CLI::write("\n[LEMBRETE] Execute os comandos:", 'red');
-        CLI::write('  composer require firebase/php-jwt', 'red');
-        CLI::write('  composer require codeigniter4/settings', 'red');
-        CLI::write('  php spark migrate --all', 'red');
-        CLI::write('  php spark db:seed UsersSeeder', 'red');
-        CLI::write("\nSugestão de HASH: " . $this->gerarHashAleatorio(), 'blue');
+        //
+        CLI::write("\n\nSugestão de HASH: " . $this->gerarHashAleatorio(), 'blue');
     }
     private function copyFilesFromDirectory($directoryName, $relativePath)
     {
