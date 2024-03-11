@@ -1,15 +1,15 @@
 {
-    "name": "dizitcodes/auth",
+    "name": "dizitcodes/panel",
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Dizit\\Auth\\": "src/"
+            "Dizit\\Panel\\": "src/"
         }
     },
     "extra": {
         "codeigniter4": {
             "commands": {
-                "Dizit\\Auth\\Commands\\SetupCommand": "auth:setup"
+                "Dizit\\Panel\\Commands\\SetupCommand": "panel:setup"
             }
         }
     }

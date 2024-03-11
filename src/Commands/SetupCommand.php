@@ -1,6 +1,6 @@
 <?php
 
-namespace Dizit\Auth\Commands;
+namespace Dizit\Panel\Commands;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
@@ -8,12 +8,12 @@ use CodeIgniter\CLI\CLI;
 class SetupCommand extends BaseCommand
 {
     protected $group = 'Dizit';
-    protected $name = 'auth:setup';
-    protected $description = 'Configura o auth.';
+    protected $name = 'panel:setup';
+    protected $description = 'Configura o painel.';
 
     public function run(array $params)
     {
-        CLI::write('Configurando o auth...', 'green');
+        CLI::write('Configurando o painel...', 'green');
 
         $directories = [
             'Cells' => 'Cells/',
@@ -33,7 +33,7 @@ class SetupCommand extends BaseCommand
             $this->copyFilesFromDirectory($key, $relativePath);
         }
 
-        $sourceFile = VENDORPATH . 'dizitcodes/auth/src/env';
+        $sourceFile = VENDORPATH . 'dizitcodes/panel/src/env';
         $destinationFile = ROOTPATH . '/dizit.env';
         if (file_exists($sourceFile)) {
             if (!file_exists($destinationFile)) {
@@ -72,7 +72,7 @@ class SetupCommand extends BaseCommand
     }
     private function copyFilesFromDirectory($directoryName, $relativePath)
     {
-        $sourceDir = VENDORPATH . 'dizitcodes/auth/src/' . $directoryName . '/';
+        $sourceDir = VENDORPATH . 'dizitcodes/panel/src/' . $directoryName . '/';
         $destinationDir = APPPATH . $relativePath;
 
         $this->recursiveCopy($sourceDir, $destinationDir);
