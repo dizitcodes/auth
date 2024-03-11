@@ -34,7 +34,7 @@ class SetupCommand extends BaseCommand
         }
 
         $sourceFile = VENDORPATH . 'dizitcodes/auth/src/env';
-        $destinationFile = ROOTPATH . '/env';
+        $destinationFile = ROOTPATH . '/dizit.env';
         if (file_exists($sourceFile)) {
             if (!file_exists($destinationFile)) {
                 if (!copy($sourceFile, $destinationFile)) {
