@@ -14,11 +14,11 @@ Instalar o JWT
 composer require firebase/php-jwt
 ```
 
-Instalar e rodar o Dizit/Auth
+Instalar e rodar o Dizit/Panel
 
 ```sh
-composer require dizitcodes/auth
-php spark auth:setup
+composer require dizitcodes/panel
+php spark panel:setup
 copy dizit.env .env
 ```
 
