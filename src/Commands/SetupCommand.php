@@ -64,6 +64,7 @@ class SetupCommand extends BaseCommand
         $this->addRoute("   \$routes->get('usuario', 'Admin\\Usuario::show');");
         $this->addRoute("   \$routes->put('usuario', 'Admin\\Usuario::update');");
         $this->addRoute("   \$routes->get('dashboard', 'Admin\\Dashboard::index');");
+        $this->addRoute("   \$routes->get('/', 'Admin\\Dashboard::index');");
         $this->addRoute("});");
 
 
