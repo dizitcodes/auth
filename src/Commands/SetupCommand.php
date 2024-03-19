@@ -51,6 +51,7 @@ class SetupCommand extends BaseCommand
         }
 
         $this->addRoute("// START - Auto Routes - Packages");
+        $this->addRoute("// Auth");
         $this->addRoute("\$routes->get('auth', 'Admin\Auth::login');");
         $this->addRoute("\$routes->get('auth/logout', 'Admin\Auth::logout');");
         $this->addRoute("\$routes->post('auth', 'Admin\Auth::signin', ['filter' => 'csrf']);");
@@ -58,7 +59,7 @@ class SetupCommand extends BaseCommand
         $this->addRoute("\$routes->post('auth/password-recovery', 'Admin\Auth::send_recovery_link', ['filter' => 'csrf']);");
         $this->addRoute("\$routes->get('auth/password-reset/(:any)', 'Admin\Auth::reset_password/$1');");
         $this->addRoute("\$routes->post('auth/password-reset/(:any)', 'Admin\Auth::update_password/$1', ['filter' => 'csrf']);");
-        $this->addRoute("\n\n");
+        $this->addRoute("// Admin basics");
         $this->addRoute("\$routes->resource('admin/configuracoes', ['controller' => 'Admin\\Configuracoes', 'filter' => 'admin_auth']);");
         $this->addRoute("\$routes->get('admin/usuario', 'Admin\\Usuario::show', ['filter' => 'admin_auth']);");
         $this->addRoute("\$routes->put('usuario', 'Admin\\Usuario::update', ['filter' => 'admin_auth']);");
